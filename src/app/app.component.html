@@ -1,21 +1,11 @@
 <ng-container>
-  <nz-input-group [nzSuffix]="suffixTemplateInfo" [nzPrefix]="prefixTemplateUser" [nzAddOnAfter]="authButton">
-    <input type="text" nz-input placeholder="Enter your Github token" [(ngModel)]="privateToken"/>
-  </nz-input-group>
-  <ng-template #prefixTemplateUser><i nz-icon nzType="user"></i></ng-template>
-  <ng-template #suffixTemplateInfo>
-    <i nz-icon nz-tooltip nzTooltipTitle="This token isn't saved anywhere, it's just used for Github api reading. To create one: https://github.com/settings/tokens/new" nzType="info-circle"></i>
-  </ng-template>
-  <ng-template #authButton>
-    <button nz-button nzType="primary" (click)="authenticate()">Authenticate</button>
-  </ng-template>
+  <div class="app-wrapper">
+    <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+      <input type="text" nz-input placeholder="Organization name" [(ngModel)]="searchString"/>
+    </nz-input-group>
+    <ng-template #suffixButton>
+      <button nz-button nzType="primary" nzSize="large" nzSearch (click)="search()">Search</button>
+    </ng-template>
+    <app-dashboard></app-dashboard>
+  </div>
 </ng-container>
-<ng-container>
-  <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
-    <input type="text" nz-input placeholder="Organization name" [(ngModel)]="searchString"/>
-  </nz-input-group>
-  <ng-template #suffixButton>
-    <button nz-button nzType="primary" nzSize="large" nzSearch (click)="search()">Search</button>
-  </ng-template>
-</ng-container>
-<app-dashboard></app-dashboard>
