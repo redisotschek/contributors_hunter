@@ -1,0 +1,37 @@
+nz-avatar {
+    margin-right: 16px;
+}
+
+.repository-title {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+
+    & a {
+        max-width: 100px;
+        text-align: left;
+    }
+}
+
+.cart {
+    &-button {
+        position: fixed;
+        bottom: 50px;
+        right: 40px;
+        width: 64px;
+        height: 64px;
+    }
+
+    &-content {
+        min-width: 200px;
+        padding: 20px
+    }
+
+    &-contributor {
+        margin: 10px 0;
+    }
+}
+
+.no-repos-message {
+    font-weight: bold;
+}

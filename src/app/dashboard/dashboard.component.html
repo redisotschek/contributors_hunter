@@ -1,7 +1,91 @@
-<ng-container *ngIf="isInSearch; else noSearch">
-<ng-container *ngIf="repositories; else noOrganization">
-    {{ repositories[0] }}
-</ng-container>
-</ng-container>
-<ng-template #noSearch>no search yet</ng-template>
-<ng-template #noOrganization>no organization</ng-template>
+<div *ngIf="!isLoading; else loading">
+    <ng-container *ngIf="currentSearchMode; else noSearch">
+        <ng-container [ngSwitch]="currentSearchMode">
+            <ng-container *ngSwitchCase="'repositories'">
+                <nz-table #basicTable *ngIf="repositories; else noRepos" [nzData]="repositories">
+                    <thead>
+                    <tr>
+                        <th>Repository</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let data of basicTable.data">
+                        <td (click)="searchContributors(data)" class="pointer">
+                            <a>{{ data.full_name }}</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </nz-table>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'contributors'">
+                <div class="repository-title">
+                    <a nz-button nzType="link" nzBlock (click)="back()">
+                        <i nz-icon nzType="left"></i>
+                        Back
+                    </a>
+                    <h1>{{ currentRepository?.full_name }}</h1>
+                </div>
+                <nz-table #basicTable *ngIf="contributors" [nzData]="contributors">
+                    <thead>
+                        <tr>
+                            <th>Contributor</th>
+                            <th>Add to cart</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of basicTable.data">
+                            <td>
+                                <nz-avatar nzIcon="user" [nzSrc]="data.avatar_url"></nz-avatar>
+                                <a [href]="data.html_url">{{ data.login }}</a>
+                            </td>
+                            <td class="pointer text-center">
+                                <a (click)="addToCart(data)">
+                                    <i nz-icon nzType="plus" nzTheme="outline"></i>
+                                </a>
+                            </td> 
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </ng-container>
+            <div class="cart-button" *ngIf="currentCart.length">
+                <nz-badge [nzCount]="currentCart.length">
+                  <button 
+                    nz-button 
+                    nzType="primary" 
+                    [nzSize]="'large'" 
+                    nzShape="circle"
+                    nz-popover
+                    nzPopoverTitle="Cart"
+                    [(nzPopoverVisible)]="cartVisible"
+                    nzPopoverTrigger="click"
+                    [nzPopoverContent]="contentTemplate"
+                    nzPopoverPlacement="leftBottom"
+                    >
+                    <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+                  </button>
+                  <ng-template #contentTemplate>
+                    <div class="cart-content">
+                        <div class="cart-contributor" *ngFor="let contributor of currentCart">
+                            <td>
+                                <nz-avatar nzIcon="user" [nzSrc]="contributor.avatar_url"></nz-avatar>
+                                <a [href]="contributor.html_url">{{ contributor.login }}</a>
+                            </td>
+                        </div>
+                        <button id="cart-close-link" nz-button nzDanger nzType="link" (click)="cartPopover()">
+                            <i nz-icon nzType="close"></i>
+                            Close
+                        </button>
+                    </div>
+                  </ng-template>
+                </nz-badge>
+              </div>
+        </ng-container>
+    </ng-container>
+</div>
+
+<ng-template #noSearch><nz-empty [nzNotFoundContent]="null" nzNotFoundImage="simple"></nz-empty></ng-template>
+<ng-template #loading><nz-spin nzSimple [nzSize]="'large'"></nz-spin></ng-template>
+<ng-template #noRepos>
+    <h2 class="no-repos-message">Repositories not found</h2>
+</ng-template>
