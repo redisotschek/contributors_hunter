@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ApiService } from './services/api.service';
+import { OrganizationSearchService } from './services/organization-search.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'contributors_hunter';
+  public searchString: string = '';
+  public privateToken: string = '';
+  public authToken: string = '';
+
+  constructor(
+    private organizationSearchService: OrganizationSearchService,
+    private apiService: ApiService,
+  ) {}
+
+  public search(): void {
+    this.organizationSearchService.searchOrganizationRepositories(this.searchString);
+  }
+
+  public authenticate(): void {
+    const res: any = this.apiService.authenticate(this.privateToken);
+    console.log(res);
+  }
 }

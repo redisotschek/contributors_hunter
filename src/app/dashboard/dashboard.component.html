@@ -1,0 +1,7 @@
+<ng-container *ngIf="isInSearch; else noSearch">
+<ng-container *ngIf="repositories; else noOrganization">
+    {{ repositories[0] }}
+</ng-container>
+</ng-container>
+<ng-template #noSearch>no search yet</ng-template>
+<ng-template #noOrganization>no organization</ng-template>
