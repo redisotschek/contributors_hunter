@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { OrganizationSearchService } from './services/organization-search.service';
 
 @Component({
@@ -7,13 +7,19 @@ import { OrganizationSearchService } from './services/organization-search.servic
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  public searchString: string = 'octokit';
+  public searchString: string = '';
+
+  public get isButtonDisabled(): boolean {
+    return !this.searchString;
+  }
 
   constructor(
     private organizationSearchService: OrganizationSearchService,
   ) {}
 
   public search(): void {
-    this.organizationSearchService.searchOrganizationRepositories(this.searchString);
+    if (this.searchString.length) {
+      this.organizationSearchService.searchOrganization(this.searchString);
+    } 
   }
 }

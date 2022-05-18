@@ -1,9 +1,9 @@
 <div class="app-wrapper">
   <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
-    <input type="text" nz-input placeholder="Organization name" [(ngModel)]="searchString"/>
+    <input type="text" nz-input placeholder="Organization name (e.g. octokit)" [(ngModel)]="searchString" (keyup.enter)="search()"/>
   </nz-input-group>
   <ng-template #suffixButton>
-    <button nz-button nzType="primary" nzSize="large" nzSearch (click)="search()">Search</button>
+    <button class="search-button" nz-button nzType="primary" nzSize="large" nzSearch [disabled]="isButtonDisabled" (click)="search()">Search</button>
   </ng-template>
   <app-dashboard></app-dashboard>
   <app-cart></app-cart>
