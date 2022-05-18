@@ -2,14 +2,23 @@
 .repository-title {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    align-items: center;
+    margin: 15px 0;
 
-    & a {
+    a {
         max-width: 100px;
         text-align: left;
+    }
+
+    h1 {
+        margin: 0;
     }
 }
 
 .no-repos-message {
     font-weight: bold;
+}
+
+.dashboard-spinner {
+    margin-top: 50px;
 }

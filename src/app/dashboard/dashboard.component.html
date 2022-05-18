@@ -2,31 +2,31 @@
     <ng-container *ngIf="currentSearchMode; else noSearch">
         <ng-container [ngSwitch]="currentSearchMode">
             <ng-container *ngSwitchCase="'repositories'">
-                <nz-table #basicTable *ngIf="repositories; else noRepos" [nzData]="repositories">
+                <nz-table class="repositories-table" #basicTable *ngIf="repositories && repositories.length; else noRepos" [nzData]="repositories">
                     <thead>
-                    <tr>
-                        <th>Repository</th>
-                    </tr>
+                        <tr>
+                            <th>Repository</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let data of basicTable.data">
-                        <td (click)="searchContributors(data)" class="pointer">
-                            <a>{{ data.full_name }}</a>
-                        </td>
-                    </tr>
+                        <tr class="repository-row" *ngFor="let data of basicTable.data">
+                            <td (click)="searchContributors(data)" class="pointer">
+                                <a>{{ data.full_name }}</a>
+                            </td>
+                        </tr>
                     </tbody>
                 </nz-table>
             </ng-container>
 
             <ng-container *ngSwitchCase="'contributors'">
                 <div class="repository-title">
-                    <a nz-button nzType="link" nzBlock (click)="back()">
+                    <a nz-button nzType="link" nzBlock (click)="backToRepos()">
                         <i nz-icon nzType="left"></i>
                         Back
                     </a>
                     <h1>{{ currentRepository?.full_name }}</h1>
                 </div>
-                <nz-table #basicTable *ngIf="contributors" [nzData]="contributors">
+                <nz-table class="contributors-table" #basicTable *ngIf="contributors" [nzData]="contributors">
                     <thead>
                         <tr>
                             <th>Contributor</th>
@@ -34,13 +34,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let data of basicTable.data">
+                        <tr class="contributor-row" *ngFor="let data of basicTable.data">
                             <td>
                                 <nz-avatar nzIcon="user" [nzSrc]="data.avatar_url"></nz-avatar>
                                 <a [href]="data.html_url">{{ data.login }}</a>
                             </td>
-                            <td class="pointer text-center">
-                                <a (click)="addToCart(data)">
+                            <td class="pointer text-center" (click)="addToCart(data)">
+                                <a>
                                     <i nz-icon nzType="plus" nzTheme="outline"></i>
                                 </a>
                             </td> 
@@ -52,8 +52,12 @@
     </ng-container>
 </div>
 
-<ng-template #noSearch><nz-empty [nzNotFoundContent]="null" nzNotFoundImage="simple"></nz-empty></ng-template>
-<ng-template #loading><nz-spin nzSimple [nzSize]="'large'"></nz-spin></ng-template>
+<ng-template #noSearch><nz-empty nzNotFoundImage="simple"></nz-empty></ng-template>
+<ng-template #loading>
+    <div class="dashboard-spinner">
+        <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+    </div>
+</ng-template>
 <ng-template #noRepos>
     <h2 class="no-repos-message">Repositories not found</h2>
 </ng-template>

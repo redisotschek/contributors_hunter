@@ -35,7 +35,7 @@ export class DashboardComponent implements OnDestroy {
     private modal: NzModalService,
   ) { 
     this.subscription.add(
-      this.organizationSearchService.organization$.pipe(
+      this.organizationSearchService.organizationSearchString$.pipe(
         tap(() => {
           this.isLoading = true;
           this.currentSearchMode = SearchMode.repositories;
@@ -71,8 +71,8 @@ export class DashboardComponent implements OnDestroy {
     });
   }
 
-  // todo rename method
-  public back(): void {
+  
+  public backToRepos(): void {
     this.currentSearchMode = SearchMode.repositories;
     this.contributors = null;
   }
