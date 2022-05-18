@@ -48,38 +48,6 @@
                     </tbody>
                 </nz-table>
             </ng-container>
-            <div class="cart-button" *ngIf="currentCart.length">
-                <nz-badge [nzCount]="currentCart.length">
-                  <button 
-                    nz-button 
-                    nzType="primary" 
-                    [nzSize]="'large'" 
-                    nzShape="circle"
-                    nz-popover
-                    nzPopoverTitle="Cart"
-                    [(nzPopoverVisible)]="cartVisible"
-                    nzPopoverTrigger="click"
-                    [nzPopoverContent]="contentTemplate"
-                    nzPopoverPlacement="leftBottom"
-                    >
-                    <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
-                  </button>
-                  <ng-template #contentTemplate>
-                    <div class="cart-content">
-                        <div class="cart-contributor" *ngFor="let contributor of currentCart">
-                            <td>
-                                <nz-avatar nzIcon="user" [nzSrc]="contributor.avatar_url"></nz-avatar>
-                                <a [href]="contributor.html_url">{{ contributor.login }}</a>
-                            </td>
-                        </div>
-                        <button id="cart-close-link" nz-button nzDanger nzType="link" (click)="cartPopover()">
-                            <i nz-icon nzType="close"></i>
-                            Close
-                        </button>
-                    </div>
-                  </ng-template>
-                </nz-badge>
-              </div>
         </ng-container>
     </ng-container>
 </div>

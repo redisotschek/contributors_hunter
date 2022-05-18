@@ -1,0 +1,24 @@
+<div class="cart-button" *ngIf="cart$ | async as cart">
+    <nz-badge [nzCount]="cart.length">
+      <button 
+        nz-button 
+        nzType="primary" 
+        [nzSize]="'large'" 
+        nzShape="circle"
+        nz-popover
+        nzPopoverTitle="Cart"
+        [nzPopoverContent]="contentTemplate"
+        nzPopoverPlacement="leftBottom"
+        >
+        <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+      </button>
+      <ng-template #contentTemplate>
+        <div class="cart-content">
+            <div class="cart-contributor" *ngFor="let contributor of cart">
+                <nz-avatar nzIcon="user" [nzSrc]="contributor.avatar_url"></nz-avatar>
+                <a [href]="contributor.html_url">{{ contributor.login }}</a>
+            </div>
+        </div>
+      </ng-template>
+    </nz-badge>
+  </div>

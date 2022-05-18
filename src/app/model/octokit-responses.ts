@@ -17,7 +17,6 @@ export interface Repository {
 
 export interface Contributor {
     avatar_url: string;
-    gravatar_url: string;
     login: string;
     html_url: string;
 }

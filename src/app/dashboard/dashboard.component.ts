@@ -13,7 +13,7 @@ const enum SearchMode {
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnDestroy {
   public repositories: Repository[] | null = null;
@@ -21,10 +21,6 @@ export class DashboardComponent implements OnDestroy {
   public isLoading: boolean = false;
   public currentSearchMode: SearchMode | null = null;
   public currentRepository?: Repository;
-
-  public currentCart: Contributor[] = [];
-
-  public cartVisible: boolean = false;
 
   public get isRepositoriesMode(): boolean {
     return this.currentSearchMode === SearchMode.repositories;
@@ -34,8 +30,8 @@ export class DashboardComponent implements OnDestroy {
 
   constructor(
     private organizationSearchService: OrganizationSearchService,
-    private cartService: CartService,
     private apiService: ApiService,
+    private cartService: CartService,
     private modal: NzModalService,
   ) { 
     this.subscription.add(
@@ -59,11 +55,6 @@ export class DashboardComponent implements OnDestroy {
         this.repositories = repositories;
         this.isLoading = false;
       }),
-    )
-    this.subscription.add(
-      this.cartService.cart$.subscribe(cart => {
-        this.currentCart = cart;
-      })
     );
   }
 
@@ -80,18 +71,14 @@ export class DashboardComponent implements OnDestroy {
     });
   }
 
+  // todo rename method
   public back(): void {
     this.currentSearchMode = SearchMode.repositories;
     this.contributors = null;
   }
 
   public addToCart(contributor: Contributor): void {
-    console.log(contributor)
     this.cartService.addToCart(contributor);
-  }
-
-  public cartPopover(): void {
-    this.cartVisible = false;
   }
 
   private showErrorModal(error: string): void {
@@ -100,5 +87,4 @@ export class DashboardComponent implements OnDestroy {
       nzCentered: true,
     });
   }
-
 }

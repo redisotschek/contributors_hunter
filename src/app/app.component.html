@@ -1,11 +1,10 @@
-<ng-container>
-  <div class="app-wrapper">
-    <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
-      <input type="text" nz-input placeholder="Organization name" [(ngModel)]="searchString"/>
-    </nz-input-group>
-    <ng-template #suffixButton>
-      <button nz-button nzType="primary" nzSize="large" nzSearch (click)="search()">Search</button>
-    </ng-template>
-    <app-dashboard></app-dashboard>
-  </div>
-</ng-container>
+<div class="app-wrapper">
+  <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+    <input type="text" nz-input placeholder="Organization name" [(ngModel)]="searchString"/>
+  </nz-input-group>
+  <ng-template #suffixButton>
+    <button nz-button nzType="primary" nzSize="large" nzSearch (click)="search()">Search</button>
+  </ng-template>
+  <app-dashboard></app-dashboard>
+  <app-cart></app-cart>
+</div>

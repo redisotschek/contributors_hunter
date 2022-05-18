@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { OrganizationSearchService } from './services/organization-search.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   public searchString: string = 'octokit';
@@ -14,7 +14,6 @@ export class AppComponent {
   ) {}
 
   public search(): void {
-    console.log("search clicked");
     this.organizationSearchService.searchOrganizationRepositories(this.searchString);
   }
 }
