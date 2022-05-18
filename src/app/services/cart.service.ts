@@ -8,6 +8,7 @@ import { Contributor } from '../model/octokit-responses';
 export class CartService {
   private currentCart: Contributor[] = [];
   private cart: Subject<Contributor[]> = new Subject();
+  
   public cart$: Observable<Contributor[]> = this.cart.asObservable();
 
   public addToCart(newContributor: Contributor): void {

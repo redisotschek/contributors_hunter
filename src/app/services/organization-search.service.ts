@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OrganizationSearchService {
-  private organization: Subject<string> = new Subject();
-  public organization$: Observable<string> = this.organization.asObservable();
+  private organizationSearchString: Subject<string> = new Subject();
 
-  constructor() { }
+  public organizationSearchString$: Observable<string> = this.organizationSearchString.asObservable();
 
-  public searchOrganizationRepositories(searchString: string): void {
-    this.organization.next(searchString);
+  public searchOrganization(searchString: string): void {
+    this.organizationSearchString.next(searchString);
   }
 }

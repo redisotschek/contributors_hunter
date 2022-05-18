@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, from, throwError, map, take } from 'rxjs';
+import { Observable, from, map, take } from 'rxjs';
 import { Octokit } from '@octokit/core';
 import { Organization, Repository, Contributor } from '../model/octokit-responses';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
   private octokit: Octokit = new Octokit();
-
-  constructor() { }
 
   public getOrganization(searchString: string): Observable<Organization> {
     return from(this.octokit.request(`GET /orgs/${searchString}`, {
